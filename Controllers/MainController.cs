@@ -72,6 +72,22 @@ namespace GoldDuck.Controllers
             {
                 return RedirectToAction("Index", "LogReg");
             }
+            //Get user with likes
+            User user = _context.users.SingleOrDefault(u => u.id == id);
+            
+            //Get likes made by user
+            List<Like> likes = _context.likes.Where(l => l.users_id == user.id).ToList();
+
+            //Get ideas made by user
+            List<Idea> ideas = _context.ideas.Where(i => i.users_id == user.id).ToList();
+
+            //Send necessary data to ViewBag
+
+            ViewBag.name = string.Format("{0} {1}", user.firstName, user.lastName);
+            ViewBag.alias = user.alias;
+            ViewBag.email = user.email;
+            ViewBag.numPosts = ideas.Count;
+            ViewBag.numLikes = likes.Count;
             return View();
         }
 

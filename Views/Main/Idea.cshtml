@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Like Status</title>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8"></div>
+            <div class="col-md-2">   
+                <a href="/bright_ideas">Bright Ideas</a>
+            </div>
+            <div class="col-md-2">
+                <a href="/Logout">Log Out</a>
+            </div>
+        </div>
+        <h3>Post:</h3>
+        
+        <p><strong>@ViewBag.idea.user.alias</strong> says "@ViewBag.idea.body"</p>
+
+        <h3>People Who Liked this Post:</h3>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <strong>Alias</strong>
+                </div>
+                <div class="col-md-6">
+                    <strong>Name</strong>
+                </div>
+                <div class="col-md-6"></div>
+            </div>
+            @{
+                @foreach (var like in @ViewBag.idea.likes)
+                {
+                    <div class="row">
+                        <div class="col-md-6">
+                            <a href="/users/@like.user.id">@like.user.alias</a>
+                        </div>
+                        <div class="col-md-6">
+                            @like.user.firstName @like.user.lastName
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</body>
+</html>

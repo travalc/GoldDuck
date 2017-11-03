@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="~/css/style.css">
-    <title>Main</title>
+    <title>Bright Ideas</title>
 </head>
 <body>
     <div class="container-fluid">
@@ -23,7 +23,7 @@
             @foreach(var idea in @ViewBag.ideas)
             {
                 <div>
-                    <p><strong>@idea.user.alias</strong> says "@idea.body"</p>
+                    <p><a href="/users/@idea.users_id">@idea.user.alias</a> says "@idea.body"</p>
                     @{
                         bool liked = false;
                         @foreach (var like in idea.likes)
@@ -37,13 +37,14 @@
                         @if (liked == false)
                         {
                             <a href="/Like/@idea.id">Like</a>
+                            <br>
                         }
                     }
                     <span><a href="/bright_ideas/@idea.id">@idea.likes.Count people</a> like this</span>
                     
                         @if (idea.users_id == @ViewBag.loggedUser.id)
                         {
-                            <a href="/Delete/@idea.id">Delete Idea</a>
+                            <p><a href="/Delete/@idea.id">Delete Idea</a></p>
                         }
                     
                 </div>
