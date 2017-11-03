@@ -2,7 +2,11 @@
 
 <h2>Registration</h2>
 @{
-    if (TempData["emailError"] != null)
+    @if (TempData["aliasError"] != null)
+    {
+        <p>@TempData["aliasError"]</p>
+    }
+    @if (TempData["emailError"] != null)
     {
         <p>@TempData["emailError"]</p>
     }
@@ -17,6 +21,9 @@
     <span asp-validation-for="email"></span>
     <label asp-for="email">Email:</label>
     <input asp-for="email" class="form-control"/>
+    <span asp-validation-for="alias"></span>
+    <label asp-for="alias">Alias: </label>
+    <input asp-for="alias" class="form-control"/>
     <span asp-validation-for="password"></span>
     <label asp-for="password">Password:</label>
     <input asp-for="password" class="form-control"/>

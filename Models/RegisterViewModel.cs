@@ -21,6 +21,9 @@ namespace GoldDuck.Models
         [EmailAddress]
         public string email { get; set; }
 
+        [Required]
+        public string alias {get; set;}
+
         [Required(ErrorMessage = "Password is required")]
         [DataType(DataType.Password)]
         [MinLength(8)]

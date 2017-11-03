@@ -24,7 +24,7 @@ namespace GoldDuck.Controllers
 
             if (HttpContext.Session.GetInt32("user_id") != null)
             {
-                return RedirectToAction("Index", "Main");
+                return RedirectToAction("bright_ideas", "Main");
             }
             return View();
         }
@@ -34,7 +34,13 @@ namespace GoldDuck.Controllers
 
         public IActionResult Register(RegisterViewModel model)
         {
+            List<User> existingAliases = _context.users.Where(item => item.alias == model.alias).ToList();
             List<User> existingEmails = _context.users.Where(item => item.email == model.email).ToList();
+            if (existingAliases.Count > 0)
+            {
+                TempData["aliasError"] = "A user with that alias already exists";
+                return RedirectToAction("Index");
+            }
             if (existingEmails.Count > 0)
             {
                 TempData["emailError"] = "A user with that email already exists";
@@ -48,6 +54,7 @@ namespace GoldDuck.Controllers
                     firstName = model.firstName,
                     lastName = model.lastName,
                     email = model.email,
+                    alias = model.alias,
                     created_at = DateTime.Now,
                     updated_at = DateTime.Now,
                     password = ""
@@ -59,7 +66,7 @@ namespace GoldDuck.Controllers
                 
                 User addedUser = _context.users.SingleOrDefault(item => item.email == model.email);
                 HttpContext.Session.SetInt32("user_id", addedUser.id);
-                return RedirectToAction("Index", "Main");
+                return RedirectToAction("bright_ideas", "Main");
             }
             else
             {
@@ -85,7 +92,7 @@ namespace GoldDuck.Controllers
                 if (Hasher.VerifyHashedPassword(user, user.password, model.password) != 0)
                 {
                     HttpContext.Session.SetInt32("user_id", user.id);
-                    return RedirectToAction("Index", "Main");
+                    return RedirectToAction("bright_ideas", "Main");
                 }
                 else
                 {

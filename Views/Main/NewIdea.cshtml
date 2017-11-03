@@ -1,0 +1,7 @@
+@model GoldDuck.Models.IdeaViewModel
+
+<form asp-controller="Main" asp-action="NewIdea" method="POST">  
+    <span asp-validation-for="body"></span>
+    <input asp-for="body" placeholder="Post something witty here..." class="form-control inlineInput"/>
+    <input type="submit" value="Idea!" class="btn-success inlineInput"/>  
+</form>
